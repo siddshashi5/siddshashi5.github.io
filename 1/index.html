@@ -98,43 +98,87 @@
 
     <div class="image-row">
         <figure>
-            <img src="images/sample1.jpg" alt="Sample Image 1">
-            <figcaption>Figure 1: Caption for the first image.</figcaption>
+            <img src="media/outputs/icon_pyramid_aligned.jpg" alt="icon_pyramid_aligned">
+            <figcaption>Green: (34, 82), Red: (45, 134)</figcaption>
         </figure>
 
         <figure>
-            <img src="images/sample2.jpg" alt="Sample Image 2">
-            <figcaption>Figure 2: Caption for the second image.</figcaption>
+            <img src="media/outputs/train_pyramid_aligned.jpg" alt="train_pyramid_aligned">
+            <figcaption>Green: (4, 43), Red: (31, 89)</figcaption>
         </figure>
 
         <figure>
-            <img src="images/sample3.jpg" alt="Sample Image 3">
-            <figcaption>Figure 3: Caption for the third image.</figcaption>
+            <img src="media/outputs/three_generations_aligned.jpg" alt="three_generations_aligned">
+            <figcaption>Green: (14, 52), Red: (11, 111)</figcaption>
         </figure>
     </div>
 
     <h2>Edge Detection Alignment</h2>
     <p>
-        Though effective, the pyramid alignment didn't work as well as I had wanted because high brightness values between channels made
-        pixel intensities insufficient. To solve this, I used a Sobel edge detection filter in both the x and y directions for each channel,
-        and then calculated the magnitude of the edges. I then phase correlated the edges between the images to find the optimal shift to 
-        align the edges of the channels. 
+        Though effective for some images, the pyramid alignment didn't work as well as I had wanted because high brightness values between 
+        channels made pixel intensities inaccurate to compare. To solve this, I used a Sobel edge detection filter in both the x and y 
+        directions for each channel, and then calculated the magnitude of the edges. I then phase correlated the edges between the images 
+        to find the optimal shift to align the edges of the channels. 
+    </p>
+
+    <p>
+        With emir.tif in particular, there edge detection offers a very noticable improvement from pyramid alignment as can be seen below:
     </p>
 
     <div class="image-row">
         <figure>
-            <img src="images/sample1.jpg" alt="Sample Image 1">
-            <figcaption>Figure 1: Caption for the first image.</figcaption>
+            <img src="media/outputs/emir_pyramid_aligned.jpg" alt="emir_pyramid_aligned">
+            <figcaption>Pyramid: Green: (47, 96), Red: (-142, 0)</figcaption>
         </figure>
 
         <figure>
-            <img src="images/sample2.jpg" alt="Sample Image 2">
-            <figcaption>Figure 2: Caption for the second image.</figcaption>
+            <img src="media/outputs/emir_aligned.jpg" alt="emir_aligned">
+            <figcaption>Edge Detection: Green: (23, 49), Red: (40, 106)</figcaption>
+        </figure>
+    </div>
+
+    <p>
+        Here are the other photos with edge alignment: 
+    </p>
+
+    <div class="image-row">
+        <figure>
+            <img src="media/outputs/harvesters_aligned.jpg" alt="harvesters_aligned">
+            <figcaption>Green: (17, 59), Red: (14, 123)</figcaption>
         </figure>
 
         <figure>
-            <img src="images/sample3.jpg" alt="Sample Image 3">
-            <figcaption>Figure 3: Caption for the third image.</figcaption>
+            <img src="media/outputs/church_aligned.jpg" alt="church_aligned">
+            <figcaption>Green: (4, 24), Red: (-4, 58)</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/outputs/lady_aligned.jpg" alt="lady_aligned">
+            <figcaption>Green: (9, 55), Red: (12, 119)</figcaption>
+        </figure>
+    </div>
+
+    <div class="image-row">
+        <figure>
+            <img src="media/outputs/melons_aligned.jpg" alt="melons_aligned">
+            <figcaption>Green: (10, 80), Red: (13, 176)</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/outputs/onion_church_aligned.jpg" alt="onion_church_aligned">
+            <figcaption>Green: (28, 50), Red: (35, 107)</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/outputs/sculpture_aligned.jpg" alt="sculpture_aligned">
+            <figcaption>Green: (-11, 33), Red: (-27, 139)</figcaption>
+        </figure>
+    </div>
+
+    <div class="image-row">
+        <figure>
+            <img src="media/outputs/self_portrait_aligned.jpg" alt="self_portrait_aligned">
+            <figcaption>Green: (28, 77), Red: (36, 175)</figcaption>
         </figure>
     </div>
 
@@ -142,24 +186,20 @@
     <p>
         Finally, I thought it would be interesting to automatically contrast the image by rescaling the pixel intensities. I did this 
         simply by rescaling image intensities such that the darkest pixel is zero on its darkest color channel and the brightest pixel 
-        is 1 on its brightest color channel.
+        is 1 on its brightest color channel. Here's an example of the difference contrasting adds:
     </p>
 
     <div class="image-row">
         <figure>
-            <img src="images/sample1.jpg" alt="Sample Image 1">
-            <figcaption>Figure 1: Caption for the first image.</figcaption>
+            <img src="media/outputs/icon_pyramid_aligned.jpg" alt="Sample Image 1">
+            <figcaption>Before</figcaption>
         </figure>
 
         <figure>
-            <img src="images/sample2.jpg" alt="Sample Image 2">
-            <figcaption>Figure 2: Caption for the second image.</figcaption>
+            <img src="media/outputs/icon_aligned_and_contrasted.jpg" alt="Sample Image 2">
+            <figcaption>After</figcaption>
         </figure>
 
-        <figure>
-            <img src="images/sample3.jpg" alt="Sample Image 3">
-            <figcaption>Figure 3: Caption for the third image.</figcaption>
-        </figure>
     </div>
 
 </body>
