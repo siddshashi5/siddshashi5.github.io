@@ -23,27 +23,42 @@
 </head>
 <body>
 
-    <h1>Welcome to My Project</h1>
+    <h1>Siddharth Shashi: Project 1 - Colorizing the Prokudin-Gorskii photo collection</h1>
 
-    <h2>Introduction</h2>
+    <h2>Description</h2>
     <p>
-        This is a basic HTML template designed to help structure content into sections and subsections.
-        It includes a main title, subsections, and text that describes each subsection.
+        The goal of this assignment is to take the digitized Prokudin-Gorskii glass plate images and, using image processing techniques, 
+        automatically produce a color image with as few visual artifacts as possible. In order to do this, the three color channel images 
+        needed to be extracted, placed on top of each other, and aligned so that they form a single RGB color image.
     </p>
 
-    <h2>Subsection 1: Project Overview</h2>
+    <h2>Core Approach</h2>
     <p>
-        In this subsection, you can describe the overview of your project. 
-        You might include the main goals, objectives, and the motivation behind the project.
+        First, the image is split into three sections of equal height by splicing the image array. Then, using alignment functions, the red
+        and green channels are compared against the blue channel to compute ideal alignment offsets. Finally, the channels are shifted according
+        to their offsets, and then stacked on top of each other to create a single image. Note: large visual artifacts along the borders of images 
+        made effective alignment computations challenging, so I compared only the centers of the images to compute offsets.
     </p>
 
-    <h2>Subsection 2: Implementation Details</h2>
+    <h2>Single-scale Alignment</h2>
     <p>
-        Here, you can talk about the methods, technologies, or tools used in the project. 
-        You can explain the steps taken to achieve the desired results and any challenges you encountered.
+        For small images, I implemented a search algorithm that would compute the norm between the two channels at each possible
+        displacement, and then return the offset of the displacement that yielded the least norm. 
     </p>
 
-    <h2>Subsection 3: Conclusion</h2>
+    <h2>Multi-scale Pyramid Alignment</h2>
+    <p>
+        The conclusion section summarizes the key takeaways from the project. 
+        You can also include any future plans or ideas for improvement in this section.
+    </p>
+
+    <h2>Edge Detection</h2>
+    <p>
+        The conclusion section summarizes the key takeaways from the project. 
+        You can also include any future plans or ideas for improvement in this section.
+    </p>
+
+    <h2>Automatic Contrasting</h2>
     <p>
         The conclusion section summarizes the key takeaways from the project. 
         You can also include any future plans or ideas for improvement in this section.
