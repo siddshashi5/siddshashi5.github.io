@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic HTML Template</title>
+    <title>Project 1</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,6 +19,28 @@
         p {
             line-height: 1.6;
         }
+        .image-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        figure {
+            flex: 1;
+            text-align: center;
+            margin: 0;
+        }
+        img {
+            width: 100%; 
+            height: auto; 
+            max-width: 300px; 
+        }
+        figcaption {
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -31,38 +53,114 @@
         automatically produce a color image with as few visual artifacts as possible. In order to do this, the three color channel images 
         needed to be extracted, placed on top of each other, and aligned so that they form a single RGB color image.
     </p>
+    
 
     <h2>Core Approach</h2>
     <p>
-        First, the image is split into three sections of equal height by splicing the image array. Then, using alignment functions, the red
-        and green channels are compared against the blue channel to compute ideal alignment offsets. Finally, the channels are shifted according
-        to their offsets, and then stacked on top of each other to create a single image. Note: large visual artifacts along the borders of images 
-        made effective alignment computations challenging, so I compared only the centers of the images to compute offsets.
+        First, the image is split into three sections of equal height by splicing the image array. Then, using alignment functions, the 
+        red and green channels are compared against the blue channel to compute ideal alignment offsets. Finally, the channels are shifted 
+        according to their offsets, and then stacked on top of each other to create a single image. One thing to note: large visual 
+        artifacts along the borders of images made effective alignment computations challenging, so I compared only the centers of the 
+        images to compute offsets.
     </p>
 
     <h2>Single-scale Alignment</h2>
     <p>
-        For small images, I implemented a search algorithm that would compute the norm between the two channels at each possible
-        displacement, and then return the offset of the displacement that yielded the least norm. 
+        For images with low resolutions, I implemented a search algorithm that would compute the norm between the two channel image vectors
+        at each displacement within [-15, 15], and then return the offset of the displacement that yielded the least norm. 
     </p>
+    
+    <div class="image-row">
+        <figure>
+            <img src="media/outputs/cathedral_aligned.jpg" alt="cathedral_aligned">
+            <figcaption>Green: (-1, 1), Red: (-1, 7)</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/outputs/monastery_aligned.jpg" alt="monastery_aligned">
+            <figcaption>Green: (2, -3), Red: (2, 3)</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/outputs/tobolsk_aligned.jpg" alt="tobolsk_aligned">
+            <figcaption>Green: (2, 3), Red: (3, 6)</figcaption>
+        </figure>
+    </div>
 
     <h2>Multi-scale Pyramid Alignment</h2>
     <p>
-        The conclusion section summarizes the key takeaways from the project. 
-        You can also include any future plans or ideas for improvement in this section.
+        For high-resolution images, exhaustively searching would be slow and computationally expensive, so I implemented a pyramid search
+        optimization. First, images were reduced in resolution until they were less than 500px tall, and then an exhaustive search was
+        performed on every offset from [-15, 15]. Next, until the image was back to full resolution, the channels were doubled in resolution
+        and then exaustively searched in just the [-2, 2] window, but <em>centered at the previously optimal offset.</em> When run on my
+        laptop, this would take at most 30 seconds to finish. 
     </p>
 
-    <h2>Edge Detection</h2>
+    <div class="image-row">
+        <figure>
+            <img src="images/sample1.jpg" alt="Sample Image 1">
+            <figcaption>Figure 1: Caption for the first image.</figcaption>
+        </figure>
+
+        <figure>
+            <img src="images/sample2.jpg" alt="Sample Image 2">
+            <figcaption>Figure 2: Caption for the second image.</figcaption>
+        </figure>
+
+        <figure>
+            <img src="images/sample3.jpg" alt="Sample Image 3">
+            <figcaption>Figure 3: Caption for the third image.</figcaption>
+        </figure>
+    </div>
+
+    <h2>Edge Detection Alignment</h2>
     <p>
-        The conclusion section summarizes the key takeaways from the project. 
-        You can also include any future plans or ideas for improvement in this section.
+        Though effective, the pyramid alignment didn't work as well as I had wanted because high brightness values between channels made
+        pixel intensities insufficient. To solve this, I used a Sobel edge detection filter in both the x and y directions for each channel,
+        and then calculated the magnitude of the edges. I then phase correlated the edges between the images to find the optimal shift to 
+        align the edges of the channels. 
     </p>
+
+    <div class="image-row">
+        <figure>
+            <img src="images/sample1.jpg" alt="Sample Image 1">
+            <figcaption>Figure 1: Caption for the first image.</figcaption>
+        </figure>
+
+        <figure>
+            <img src="images/sample2.jpg" alt="Sample Image 2">
+            <figcaption>Figure 2: Caption for the second image.</figcaption>
+        </figure>
+
+        <figure>
+            <img src="images/sample3.jpg" alt="Sample Image 3">
+            <figcaption>Figure 3: Caption for the third image.</figcaption>
+        </figure>
+    </div>
 
     <h2>Automatic Contrasting</h2>
     <p>
-        The conclusion section summarizes the key takeaways from the project. 
-        You can also include any future plans or ideas for improvement in this section.
+        Finally, I thought it would be interesting to automatically contrast the image by rescaling the pixel intensities. I did this 
+        simply by rescaling image intensities such that the darkest pixel is zero on its darkest color channel and the brightest pixel 
+        is 1 on its brightest color channel.
     </p>
+
+    <div class="image-row">
+        <figure>
+            <img src="images/sample1.jpg" alt="Sample Image 1">
+            <figcaption>Figure 1: Caption for the first image.</figcaption>
+        </figure>
+
+        <figure>
+            <img src="images/sample2.jpg" alt="Sample Image 2">
+            <figcaption>Figure 2: Caption for the second image.</figcaption>
+        </figure>
+
+        <figure>
+            <img src="images/sample3.jpg" alt="Sample Image 3">
+            <figcaption>Figure 3: Caption for the third image.</figcaption>
+        </figure>
+    </div>
 
 </body>
 </html>
