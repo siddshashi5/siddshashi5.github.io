@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #555;
+            margin-top: 20px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        .image-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        figure {
+            flex: 1;
+            text-align: center;
+            margin: 0;
+        }
+        img {
+            width: 100%; 
+            height: auto; 
+            max-width: 300px; 
+        }
+        figcaption {
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Siddharth Shashi: Project 2 - Fun with Filters and Frequencies!</h1>
+
+    <h2>Description</h2>
+    <p>
+        The goal of this assignment is to learn about image filtering techinques through a few sub-assigments, among which are blurring 
+        images, sharpening images, creating hybrid images, and creating blended images. 
+    </p>
+    
+    <h2>Gradient Magnitude Computation</h2>
+    <p>
+        Given simple 2-d vectors Dx = [-1, 1] and Dy = [[-1], [1]], I convolved them with an image of a cameraman to take the partial 
+        derivative of the images with respect to these vectors. By highlighting the places in the image that corresponded to high 
+        derivative values, I was able to see where there was a high rate of change in the image with respect to the vector. Finally, 
+        I combined these values into a single edge image by calculating the magnitude of the gradient for each pixel. 
+    </p>
+
+    <div class="image-row"></div>
+        <figure>
+            <img src="media/cameraman.png" alt="cameraman">
+            <figcaption>Original</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/dx.jpg" alt="dx">
+            <figcaption>dx</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/dy.jpg" alt="dy">
+            <figcaption>dy</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/combined.jpg" alt="combined">
+            <figcaption>Combined</figcaption>
+        </figure>
+    </div>
+
+
+    <h2>Derivative of Gaussian (DoG) Filter</h2>
+    <p>
+        Because of the noise in the image, the edge readings were also correspondingly noisy. To combat this, I used a Gaussian filter to
+        smooth the image and remove the noise, and along with that I performed edge computation. When I did this, I noticed less noise 
+        in the background of the image, particularly in the lawn underneath the cameraman. Also, because I used convolution for the filter
+        and for edge computation and convolution is commutative, I was able to get the same result whether I smoothed the image and took 
+        the edges of that or if I convolved the gaussian first before using to smooth. 
+    </p>
+    
+    <div class="image-row">
+        <figure>
+            <img src="media/convolve_then_smooth.jpg" alt="convolve_then_smooth">
+            <figcaption>Convolve, then smooth</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/smooth_then_convolve.jpg" alt="smooth_then_convolve">
+            <figcaption>Smooth, then convolve</figcaption>
+        </figure>
+
+    </div>
+
+    <h2>Image Sharpening</h2>
+    <p>
+        To sharpen an image, I first convolved it with a Gaussian filter to remove high frequencies. Then I subtracted the filtered image
+        from the orignal to get just the high frequencies, and added the frequencies on top of the orignal image. Using the same technique,
+        I also could resharpen blurred images. 
+    </p>
+
+    <div class="image-row">
+        <figure>
+            <img src="media/taj.jpg" alt="taj">
+            <figcaption>Original</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/taj_sharpened.jpg" alt="taj_sharpened">
+            <figcaption>Sharpened</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/taj.jpg" alt="taj">
+            <figcaption>Original</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/taj_sharpened.jpg" alt="taj_sharpened">
+            <figcaption>Sharpened</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/taj_blurred.jpg" alt="taj_blurred">
+            <figcaption>Blurred</figcaption>
+        </figure>
+
+        <figure></figure>
+            <img src="media/taj_resharpened.jpg" alt="taj_resharpened">
+            <figcaption>Resharpened</figcaption>
+        </figure>
+
+
+    </div>
+
+    <h2>Hybrid Images</h2>
+    <p>
+        Hybrid images are static images that change in interpretation as a function of the viewing distance. The basic idea is that high frequency 
+        tends to dominate perception when it is available, but, at a distance, only the low frequency part of the signal can be seen. I blended
+        high frequency and low frequency images into a single static image to try to achieve this affect, and some attempts were more 
+        successful than others. 
+    </p>
+
+    <p>
+        I chose to take the more challenging route by using colored images and filtering them instead of simply using grayscale image, and
+        this proved difficult because filtering colored images as much as I needed to create this effect distorted them to the point where 
+        they were hardly recognizable. I felt that neither the high or low frequency images were great at avoiding this effect, and I wasn't
+        able to tweak my inputs for it to come out looking great. 
+    </p>
+
+    <div class="image-row">
+        <figure>
+            <img src="media/derek_and_cat_color.jpg" alt="derek_and_cat_color">
+            <figcaption>Color: hi_sigma = 8, lo_sigma = 3</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/derek_and_cat_bw.jpg" alt="derek_and_cat_bw">
+            <figcaption>Black and White: hi_sigma = 6, lo_sigma = 6</figcaption>
+        </figure>
+    </div>
+
+    <p>
+        I tried some other images, but I still struggled to get the same effect as in the paper. I think it really came down to choosing 
+        good images that have similar enough characteristics to blend into each other nicely without  
+    </p>
+
+    <div class="image-row">
+        <figure>
+            <img src="media/sidd_monkey_hybrid.jpg" alt="sidd_monkey_hybrid">
+            <figcaption>Me combined with a monkey</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/quote.jpg" alt="quote">
+            <figcaption>"Speech is silver, but silence is golden"</figcaption>
+        </figure>
+
+
+    </div>
+
+    <p>
+        For my "Speech is silver, but silence is golden" image, here are the corresponding FFT graphs.   
+    </p>
+
+    <div class="image-row">
+        <figure>
+            <img src="media/speech_is_silver_fft.jpg" alt="speech_is_silver_fft">
+            <figcaption>"Speech is silver"</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/silence_is_golden_fft.jpg" alt="silence_is_golden_fft">
+            <figcaption>"Silence is golden"</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/quote_fft.jpg" alt="quote_fft">
+            <figcaption>Hybrid</figcaption>
+        </figure>
+    </div>
+
+
+    <h2>Multi-resolution Blending</h2>
+    <p>
+        Finally, I used frequency manipulation to blend images. To do this, I created Gaussian and Laplacian stacks of images and 
+        a mask with the following method. For each level of the Gaussian stack, the previous level is blurred using a Gaussian 
+        kernel to get to the next level. The difference between successive images in this stack make up the Laplacian stack. Finally, 
+        the last blurred image in the Gaussian stack is added to the Laplacian stack. This way, the original image could be reconstructed
+        by adding together all the images in the Laplacian stack. 
+    </p>
+
+    <p>
+        For the apple and orange, here are their laplacians at the 0th, 4th, and 9th indices.    
+    </p>
+
+    <div class="image-row">
+        <figure>
+            <img src="media/apple_laplacian_0.jpg" alt="apple_laplacian_0">
+            <figcaption>Apple: 0</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/apple_laplacian_4.jpg" alt="apple_laplacian_4">
+            <figcaption>Apple: 4</figcaption>
+        </figure>
+
+        <figure></figure>
+            <img src="media/apple_laplacian_9.jpg" alt="apple_laplacian_9">
+            <figcaption>Apple: 9</figcaption>
+        </figure>
+
+    </div>
+
+    <div class="image-row">
+        <figure>
+            <img src="media/orange_laplacian_0.jpg" alt="orange_laplacian_0">
+            <figcaption>Orange: 0</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/orange_laplacian_4.jpg" alt="orange_laplacian_4">
+            <figcaption>Orange: 4</figcaption>
+        </figure>
+
+        <figure></figure>
+            <img src="media/orange_laplacian_9.jpg" alt="orange_laplacian_9">
+            <figcaption>Orange: 9</figcaption>
+        </figure>
+
+    </div>
+
+    <p>
+        Finally, I used a mask to choose how to apply the amounts of each of the image to each other in my blended result. I created
+        a Gaussian stack of my mask and for each level i in the stacks, I would multiply the mask with the corresponding Laplacian for
+        the first image and the inverse of the mask for the second image. Here are the results. Hope you enjoyed. 
+    </p>
+
+    <div class="image-row"></div>
+        <figure>
+            <img src="media/oraple.jpg" alt="oraple">
+            <figcaption>Oraple</figcaption>
+        </figure>
+
+        <figure>
+            <img src="media/monkey_me.jpg" alt="monkey_me">
+            <figcaption>Monkey Time</figcaption>
+        </figure>
+
+        <figure></figure>
+            <img src="media/basketoccer.jpg" alt="basketoccer">
+            <figcaption>Basketoccer</figcaption>
+        </figure>
+
+    </div>
+</body>
+</html>
