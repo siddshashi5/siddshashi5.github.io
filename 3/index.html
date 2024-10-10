@@ -153,7 +153,13 @@
 
         <h2>The "Mean Face" of a Population</h2>
         <p>
-            
+            Using the FEI annotated face database, I used my inverse warping functions to create the average faces across their 
+            dataset of 200 different faces. I did this by warping each face into the average shape and then averaging out their pixel 
+            contributions before stacking them onto each other. I then warped my face into the average shape that I got, and it looked
+            pretty funny. I guess they must have been using a different focal length :) I then continued to warp the average face into 
+            my own facial geometry, but that didn't work well either because their facial annotation didn't comprehensively label the 
+            face's shape around the forehead. Finally, using exterpolation from the mean image and my warped face, I created a caricature 
+            of myself. 
         </p>
 
         <div class="grey-image-row">
@@ -187,9 +193,8 @@
 
         <h2>Making Myself Italian</h2>
         <p>
-            To improve alignment accuracy, especially for images where color intensities vary greatly, I applied edge detection using Sobel 
-            filters. This method focuses on aligning the edges of the image features, which helps reduce misalignment caused by brightness 
-            variations across channels.
+            I found an image of an average male college student at a university in Italy, and since I'm going to Italy soon, 
+            I thought it would be fun to see if I could make myself look Italian with my inverse warping functions. 
         </p>
 
         <div class="image-row">
