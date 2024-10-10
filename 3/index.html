@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 1 - Prokudin-Gorskii Photo Collection</title>
+    <title>Project 3 - Face Morphing</title>
     <style>
-        /* Use a clean, professional font and neutral background */
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
@@ -14,14 +13,12 @@
             color: #333;
         }
 
-        /* Global container for content with maximum width */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* Professional header styling */
         h1 {
             color: #222;
             text-align: center;
@@ -44,7 +41,6 @@
             margin-bottom: 20px;
         }
 
-        /* Flexbox image row with better spacing */
         .image-row {
             display: flex;
             justify-content: space-between;
@@ -81,7 +77,6 @@
             margin-top: 10px;
         }
 
-        /* Adjust container widths for different screen sizes */
         @media (max-width: 768px) {
             .image-row {
                 flex-direction: column;
@@ -93,13 +88,12 @@
 <body>
 
     <div class="container">
-        <h1>Siddharth Shashi: Project 1 - Colorizing the Prokudin-Gorskii Photo Collection</h1>
+        <h1>Siddharth Shashi: Project 3 - Face Morphing</h1>
 
         <h2>Description</h2>
         <p>
-            The goal of this assignment is to take the digitized Prokudin-Gorskii glass plate images and, using image processing techniques, 
-            automatically produce a color image with as few visual artifacts as possible. This involves extracting the three color channels 
-            from a single image and aligning them to create a final RGB image.
+            The goal of this project is to produce a "morph" animation of my face into someone else's face, compute the mean of a population of 
+            faces and extrapolate from a population mean to create a caricature of myself.
         </p>
         
         <h2>Core Approach</h2>
@@ -110,7 +104,7 @@
             and ensures proper color alignment.
         </p>
 
-        <h2>Single-scale Alignment</h2>
+        <h2>Mid-way Face</h2>
         <p>
             For images with lower resolutions, I implemented a search algorithm that computes the norm between the two channel image vectors
             at each displacement within a small window. The offset that results in the smallest norm is selected as the optimal alignment.
@@ -118,22 +112,22 @@
         
         <div class="image-row">
             <figure>
-                <img src="media/outputs/cathedral_aligned.jpg" alt="Cathedral Aligned">
-                <figcaption>Green: (-1, 1), Red: (-1, 7)</figcaption>
+                <img src="media/website/sidd.jpg" alt="sidd">
+                <figcaption>picture of myself</figcaption>
             </figure>
 
             <figure>
-                <img src="media/outputs/monastery_aligned.jpg" alt="Monastery Aligned">
-                <figcaption>Green: (2, -3), Red: (2, 3)</figcaption>
+                <img src="media/website/george_small.jpg" alt="george_small">
+                <figcaption>picture of George Clooney</figcaption>
             </figure>
 
             <figure>
-                <img src="media/outputs/tobolsk_aligned.jpg" alt="Tobolsk Aligned">
-                <figcaption>Green: (2, 3), Red: (3, 6)</figcaption>
+                <img src="media/website/sidd_george_mean.jpg" alt="sidd_george_mean">
+                <figcaption>half me, half George Clooney</figcaption>
             </figure>
         </div>
 
-        <h2>Multi-scale Pyramid Alignment</h2>
+        <h2>Morph Sequence</h2>
         <p>
             For higher-resolution images, I implemented a multi-scale pyramid search to make the process more efficient. Images are scaled 
             down, and alignment is first performed on the lower-resolution image. This alignment is then used as a starting point when 
@@ -142,22 +136,12 @@
 
         <div class="image-row">
             <figure>
-                <img src="media/outputs/icon_pyramid_aligned.jpg" alt="Icon Pyramid Aligned">
-                <figcaption>Green: (34, 82), Red: (45, 134)</figcaption>
-            </figure>
-
-            <figure>
-                <img src="media/outputs/train_pyramid_aligned.jpg" alt="Train Pyramid Aligned">
-                <figcaption>Green: (4, 43), Red: (31, 89)</figcaption>
-            </figure>
-
-            <figure>
-                <img src="media/outputs/three_generations_aligned.jpg" alt="Three Generations Aligned">
-                <figcaption>Green: (14, 52), Red: (11, 111)</figcaption>
+                <img src="media/website/animated.gif" alt="Morph Animation" width="500" height="auto">
+                <figcaption>Morph Animation</figcaption>
             </figure>
         </div>
 
-        <h2>Edge Detection Alignment</h2>
+        <h2>The "Mean Face" of a Population</h2>
         <p>
             To improve alignment accuracy, especially for images where color intensities vary greatly, I applied edge detection using Sobel 
             filters. This method focuses on aligning the edges of the image features, which helps reduce misalignment caused by brightness 
@@ -166,13 +150,54 @@
 
         <div class="image-row">
             <figure>
-                <img src="media/outputs/emir_aligned.jpg" alt="Emir Aligned">
-                <figcaption>Green: (23, 49), Red: (40, 106)</figcaption>
+                <img src="media/website/average_neutral.jpg" alt="average_neutral">
+                <figcaption>average neutral</figcaption>
             </figure>
 
             <figure>
-                <img src="media/outputs/harvesters_aligned.jpg" alt="Harvesters Aligned">
-                <figcaption>Green: (17, 59), Red: (14, 123)</figcaption>
+                <img src="media/website/average_smile.jpg" alt="average_smile">
+                <figcaption>average smiling</figcaption>
+            </figure>
+        </div>
+
+        <div class="image-row">
+            <figure>
+                <img src="media/website/warped_sidd.jpg" alt="warped_sidd">
+                <figcaption>myself warped into average geometry</figcaption>
+            </figure>
+
+            <figure>
+                <img src="media/website/warped_neutral.jpg" alt="warped_neutral">
+                <figcaption>the average warped into my geometry</figcaption>
+            </figure>
+
+            <figure>
+                <img src="media/website/sidd_caricature.jpg" alt="sidd_caricature">
+                <figcaption>caricature from extrapolation</figcaption>
+            </figure>
+        </div>
+
+        <h2>Making Myself Italian</h2>
+        <p>
+            To improve alignment accuracy, especially for images where color intensities vary greatly, I applied edge detection using Sobel 
+            filters. This method focuses on aligning the edges of the image features, which helps reduce misalignment caused by brightness 
+            variations across channels.
+        </p>
+
+        <div class="image-row">
+            <figure>
+                <img src="media/website/sidd_italian_shape.jpg" alt="sidd_italian_shape">
+                <figcaption>morphing just the shape</figcaption>
+            </figure>
+
+            <figure>
+                <img src="media/website/sidd_italian_color.jpg" alt="sidd_italian_color">
+                <figcaption>morphing just the color</figcaption>
+            </figure>
+
+            <figure>
+                <img src="media/website/sidd_italian.jpg" alt="sidd_italian">
+                <figcaption>morphing both the shape and color</figcaption>
             </figure>
         </div>
     </div>
