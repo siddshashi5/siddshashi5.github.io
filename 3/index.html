@@ -3,161 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 1</title>
+    <title>Project 1 - Prokudin-Gorskii Photo Collection</title>
     <style>
+        /* Use a clean, professional font and neutral background */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
-            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
             color: #333;
-            line-height: 1.6;
-            font-size: 18px;
         }
 
+        /* Global container for content with maximum width */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Professional header styling */
         h1 {
-            color: #fff;
+            color: #222;
             text-align: center;
-            font-size: 3em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 300;
         }
 
         h2 {
-            color: #222;
-            margin-top: 30px;
-            font-size: 2em;
-            border-bottom: 2px solid #fff;
-            padding-bottom: 10px;
+            color: #444;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-weight: 400;
         }
 
         p {
+            font-size: 1.1em;
+            line-height: 1.8;
             margin-bottom: 20px;
-            font-size: 1.2em;
         }
 
+        /* Flexbox image row with better spacing */
         .image-row {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
+            gap: 20px;
             flex-wrap: wrap;
-            gap: 30px;
-            margin: 30px 0;
+            margin-bottom: 40px;
         }
 
         figure {
             flex: 1;
             text-align: center;
             margin: 0;
-            transition: transform 0.3s ease-in-out;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
         }
 
         figure:hover {
-            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
         img {
-            width: 100%; 
+            width: 100%;
             height: auto;
-            border-radius: 12px;
-            max-width: 100%;
-            transition: filter 0.3s ease;
-        }
-
-        figure:hover img {
-            filter: brightness(0.9);
+            border-radius: 8px;
         }
 
         figcaption {
-            font-size: 16px;
-            color: #fff;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px;
-            border-radius: 0 0 12px 12px;
-            position: relative;
-            top: -10px;
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
         }
 
-        a, button {
-            color: #fff;
-            background-color: #555;
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-        }
-
-        a:hover, button:hover {
-            background-color: #333;
+        /* Adjust container widths for different screen sizes */
+        @media (max-width: 768px) {
+            .image-row {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <h1>Siddharth Shashi: Project 3 - Face Morphing</h1>
+    <div class="container">
+        <h1>Siddharth Shashi: Project 1 - Colorizing the Prokudin-Gorskii Photo Collection</h1>
 
-    <h2>Description</h2>
-    <p>
-        The goal of this assignment is to take the digitized Prokudin-Gorskii glass plate images and, using image processing techniques, 
-        automatically produce a color image with as few visual artifacts as possible. In order to do this, the three color channel images 
-        needed to be extracted, placed on top of each other, and aligned so that they form a single RGB color image.
-    </p>
-    
-    <h2>Core Approach</h2>
-    <p>
-        First, the image is split into three sections of equal height by splicing the image array. Then, using alignment functions, the 
-        red and green channels are compared against the blue channel to compute ideal alignment offsets. Finally, the channels are shifted 
-        according to their offsets, and then stacked on top of each other to create a single image. 
-    </p>
+        <h2>Description</h2>
+        <p>
+            The goal of this assignment is to take the digitized Prokudin-Gorskii glass plate images and, using image processing techniques, 
+            automatically produce a color image with as few visual artifacts as possible. This involves extracting the three color channels 
+            from a single image and aligning them to create a final RGB image.
+        </p>
+        
+        <h2>Core Approach</h2>
+        <p>
+            First, the image is split into three sections of equal height by splicing the image array. Then, using alignment functions, the 
+            red and green channels are compared against the blue channel to compute ideal alignment offsets. Finally, the channels are shifted 
+            according to their offsets, and then stacked on top of each other to create a single image. This process reduces visual artifacts 
+            and ensures proper color alignment.
+        </p>
 
-    <h2>Single-scale Alignment</h2>
-    <p>
-        For images with low resolutions, I implemented a search algorithm that would compute the norm between the two channel image vectors
-        at each displacement within [-15, 15], and then return the offset of the displacement that yielded the least norm. 
-    </p>
-    
-    <div class="image-row">
-        <figure>
-            <img src="media/outputs/cathedral_aligned.jpg" alt="Cathedral Aligned">
-            <figcaption>Green: (-1, 1), Red: (-1, 7)</figcaption>
-        </figure>
+        <h2>Single-scale Alignment</h2>
+        <p>
+            For images with lower resolutions, I implemented a search algorithm that computes the norm between the two channel image vectors
+            at each displacement within a small window. The offset that results in the smallest norm is selected as the optimal alignment.
+        </p>
+        
+        <div class="image-row">
+            <figure>
+                <img src="media/outputs/cathedral_aligned.jpg" alt="Cathedral Aligned">
+                <figcaption>Green: (-1, 1), Red: (-1, 7)</figcaption>
+            </figure>
 
-        <figure>
-            <img src="media/outputs/monastery_aligned.jpg" alt="Monastery Aligned">
-            <figcaption>Green: (2, -3), Red: (2, 3)</figcaption>
-        </figure>
+            <figure>
+                <img src="media/outputs/monastery_aligned.jpg" alt="Monastery Aligned">
+                <figcaption>Green: (2, -3), Red: (2, 3)</figcaption>
+            </figure>
 
-        <figure>
-            <img src="media/outputs/tobolsk_aligned.jpg" alt="Tobolsk Aligned">
-            <figcaption>Green: (2, 3), Red: (3, 6)</figcaption>
-        </figure>
-    </div>
+            <figure>
+                <img src="media/outputs/tobolsk_aligned.jpg" alt="Tobolsk Aligned">
+                <figcaption>Green: (2, 3), Red: (3, 6)</figcaption>
+            </figure>
+        </div>
 
-    <h2>Multi-scale Pyramid Alignment</h2>
-    <p>
-        For high-resolution images, exhaustively searching would be slow and computationally expensive, so I implemented a pyramid search
-        optimization. First, images were reduced in resolution until they were less than 500px tall, and then an exhaustive search was
-        performed on every offset from [-15, 15]. Next, until the image was back to full resolution, the channels were doubled in resolution
-        and then exaustively searched in just the [-2, 2] window.
-    </p>
+        <h2>Multi-scale Pyramid Alignment</h2>
+        <p>
+            For higher-resolution images, I implemented a multi-scale pyramid search to make the process more efficient. Images are scaled 
+            down, and alignment is first performed on the lower-resolution image. This alignment is then used as a starting point when 
+            refining the alignment for the higher-resolution image.
+        </p>
 
-    <div class="image-row">
-        <figure>
-            <img src="media/outputs/icon_pyramid_aligned.jpg" alt="Icon Pyramid Aligned">
-            <figcaption>Green: (34, 82), Red: (45, 134)</figcaption>
-        </figure>
+        <div class="image-row">
+            <figure>
+                <img src="media/outputs/icon_pyramid_aligned.jpg" alt="Icon Pyramid Aligned">
+                <figcaption>Green: (34, 82), Red: (45, 134)</figcaption>
+            </figure>
 
-        <figure>
-            <img src="media/outputs/train_pyramid_aligned.jpg" alt="Train Pyramid Aligned">
-            <figcaption>Green: (4, 43), Red: (31, 89)</figcaption>
-        </figure>
+            <figure>
+                <img src="media/outputs/train_pyramid_aligned.jpg" alt="Train Pyramid Aligned">
+                <figcaption>Green: (4, 43), Red: (31, 89)</figcaption>
+            </figure>
 
-        <figure>
-            <img src="media/outputs/three_generations_aligned.jpg" alt="Three Generations Aligned">
-            <figcaption>Green: (14, 52), Red: (11, 111)</figcaption>
-        </figure>
+            <figure>
+                <img src="media/outputs/three_generations_aligned.jpg" alt="Three Generations Aligned">
+                <figcaption>Green: (14, 52), Red: (11, 111)</figcaption>
+            </figure>
+        </div>
+
+        <h2>Edge Detection Alignment</h2>
+        <p>
+            To improve alignment accuracy, especially for images where color intensities vary greatly, I applied edge detection using Sobel 
+            filters. This method focuses on aligning the edges of the image features, which helps reduce misalignment caused by brightness 
+            variations across channels.
+        </p>
+
+        <div class="image-row">
+            <figure>
+                <img src="media/outputs/emir_aligned.jpg" alt="Emir Aligned">
+                <figcaption>Green: (23, 49), Red: (40, 106)</figcaption>
+            </figure>
+
+            <figure>
+                <img src="media/outputs/harvesters_aligned.jpg" alt="Harvesters Aligned">
+                <figcaption>Green: (17, 59), Red: (14, 123)</figcaption>
+            </figure>
+        </div>
     </div>
 
 </body>
