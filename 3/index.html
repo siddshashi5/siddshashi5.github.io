@@ -71,6 +71,18 @@
             border-radius: 8px;
         }
 
+        .grey-image-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .grey-image-row img{
+            filter: grayscale(100%);
+        }
+
         figcaption {
             font-size: 0.9em;
             color: #666;
@@ -92,22 +104,21 @@
 
         <h2>Description</h2>
         <p>
-            The goal of this project is to produce a "morph" animation of my face into someone else's face, compute the mean of a population of 
-            faces and extrapolate from a population mean to create a caricature of myself.
+            The goal of this project is to produce a "morph" animation of my face into someone else's face, compute the mean of a 
+            population of faces, and extrapolate from a population mean to create a caricature of myself.
         </p>
         
         <h2>Core Approach</h2>
         <p>
-            First, the image is split into three sections of equal height by splicing the image array. Then, using alignment functions, the 
-            red and green channels are compared against the blue channel to compute ideal alignment offsets. Finally, the channels are shifted 
-            according to their offsets, and then stacked on top of each other to create a single image. This process reduces visual artifacts 
-            and ensures proper color alignment.
+            First, I created a tool to let me manually label corresponding points on both my face and the other face. Then, using 
+            Delaunay triangulation, I created corresponding triangles. By creating affine transformation matrices and using linear
+            color interpolation, I transformed triangles to in turn transform faces into the shapes I desired.  
         </p>
 
         <h2>Mid-way Face</h2>
         <p>
-            For images with lower resolutions, I implemented a search algorithm that computes the norm between the two channel image vectors
-            at each displacement within a small window. The offset that results in the smallest norm is selected as the optimal alignment.
+            To create the mid-way face, I started with a triangulation of the mean set across the corresponding points in both images.
+            Then, to avoid holes, I used inverse warping to bring each corresponding triangle from each image into the mean triangle. 
         </p>
         
         <div class="image-row">
@@ -129,9 +140,8 @@
 
         <h2>Morph Sequence</h2>
         <p>
-            For higher-resolution images, I implemented a multi-scale pyramid search to make the process more efficient. Images are scaled 
-            down, and alignment is first performed on the lower-resolution image. This alignment is then used as a starting point when 
-            refining the alignment for the higher-resolution image.
+            Similar to the way I made the mid-way face, I created a morph sequence by varying the shape and color dissolution between
+            the corresponding triangles.
         </p>
 
         <div class="image-row">
@@ -143,12 +153,10 @@
 
         <h2>The "Mean Face" of a Population</h2>
         <p>
-            To improve alignment accuracy, especially for images where color intensities vary greatly, I applied edge detection using Sobel 
-            filters. This method focuses on aligning the edges of the image features, which helps reduce misalignment caused by brightness 
-            variations across channels.
+            
         </p>
 
-        <div class="image-row">
+        <div class="grey-image-row">
             <figure>
                 <img src="media/website/average_neutral.jpg" alt="average_neutral">
                 <figcaption>average neutral</figcaption>
@@ -160,7 +168,7 @@
             </figure>
         </div>
 
-        <div class="image-row">
+        <div class="grey-image-row">
             <figure>
                 <img src="media/website/warped_sidd.jpg" alt="warped_sidd">
                 <figcaption>myself warped into average geometry</figcaption>
@@ -183,6 +191,13 @@
             filters. This method focuses on aligning the edges of the image features, which helps reduce misalignment caused by brightness 
             variations across channels.
         </p>
+        
+        <div class="image-row">
+            <figure>
+                <img src="media/website/average_italian.jpg" alt="average_italian">
+                <figcaption>average Italian guy</figcaption>
+            </figure>
+        </div>
 
         <div class="image-row">
             <figure>
